@@ -1,0 +1,8 @@
+<VirtualHost *:80>
+    DocumentRoot /home/thib/Documents/Boulot/5Team/Exercices/2- Interface utilisateur/public
+    <Directory /home/thib/Documents/Boulot/5Team/Exercices/2- Interface utilisateur/public>
+        AllowOverride All
+        Order Allow,Deny
+        Allow from All
+    </Directory>
+</VirtualHost>
