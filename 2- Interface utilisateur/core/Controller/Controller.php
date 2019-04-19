@@ -10,6 +10,21 @@ namespace Core\Controller;
 abstract class Controller
 {
     /**
+     * @param string $templatePath
+     * @param array $viewData
+     *
+     * Allow to inject variables in given template file
+     */
+    protected function render(string $templatePath, array $viewData = [])
+    {
+        if(!empty($viewData))
+            extract($viewData);
+        ob_start();
+        include(ROOT . $templatePath);
+        echo ob_get_clean();
+    }
+
+    /**
      * 403 response
      */
     public function forbidden(){
