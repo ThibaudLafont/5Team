@@ -2,20 +2,19 @@
 
     <?php foreach ($tickets as $ticket) {?>
 
+        <!-- Ticket -->
         <div class="card">
-            <div class="card-header">
-                <?=$ticket->getFormattedDate()?>
-            </div>
+            <!-- Ticket Date -->
+            <div class="card-header" id="ticket-date"><?=$ticket->getFormattedDate()?></div>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                    <?=$ticket->getTitle()?>
-                </li>
-                <li class="list-group-item">
-                    <?=$ticket->getSpent()?> $
-                </li>
+                <!-- Ticket Title -->
+                <li class="list-group-item" id="ticket-title"><?=$ticket->getTitle()?></li>
+                <!-- Ticket Spent -->
+                <li class="list-group-item" id="ticket-spent"><?=$ticket->getSpent()?>$</li>
+                <!-- Action buttons -->
                 <li class="list-group-item">
                     <buttton class="btn btn-warning">Edit</buttton>
-                    <buttton class="btn btn-danger">Delete</buttton>
+                    <buttton class="btn btn-danger" onclick="deleteTicket(<?=$ticket->getId()?>)">Delete</buttton>
                 </li>
             </ul>
         </div>

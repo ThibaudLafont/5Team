@@ -7,6 +7,11 @@ class Ticket extends Entity
 {
 
     /**
+     * @var integer
+     */
+    private $id;
+
+    /**
      * @var string
      */
     private $title;
@@ -20,6 +25,22 @@ class Ticket extends Entity
      * @var \DateTime
      */
     private $date;
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId(int $id)
+    {
+        $this->id = $id;
+    }
 
     /**
      * @return string
@@ -72,10 +93,9 @@ class Ticket extends Entity
     public function setDate($date)
     {
         if(is_string($date)) {
-            $this->date = new \DateTime($date, new \DateTimeZone('Europe/Paris'));
+            $this->date = date_create_from_format('d/m/Y', $date);
         } else {
             $this->date = $date;
         }
     }
-
 }

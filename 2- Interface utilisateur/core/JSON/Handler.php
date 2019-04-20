@@ -21,19 +21,6 @@ class Handler
         $this->setPath($path);
     }
 
-    public function extract()
-    {
-        // Check if data already been decode
-        if(!is_null($this->getData())) {
-            return $this->getData();
-        // Else decode, store and return
-        } else {
-            return $this->setData(
-                json_decode(file_get_contents($this->getPath()), true)
-            );
-        }
-    }
-
     public function createElement($element)
     {
 
@@ -44,14 +31,20 @@ class Handler
 
     }
 
-    public function removeElement($element)
+    public function removeElement($id)
     {
-
+        $data = $this->getData();
+        unset($data[$id]);
+        $this->setData($data);
     }
 
-    private function write()
+    public function write()
     {
-
+        if(is_null($this->getData())) {
+            throw new Exception("Call createElement(), editElement() or removeElement() before calling write()");
+        } else {
+            file_put_contents($this->getPath(), json_encode($this->getData()));
+        }
     }
 
     /**
@@ -73,9 +66,17 @@ class Handler
     /**
      * @return array
      */
-    private function getData()
+    public function getData()
     {
-        return $this->data;
+        // Check if data already been decode
+        if(!is_null($this->data)) {
+            return $this->data;
+        // Else decode, store and return
+        } else {
+            return $this->setData(
+                json_decode(file_get_contents($this->getPath()), true)
+            );
+        }
     }
 
     /**
@@ -87,5 +88,4 @@ class Handler
         $this->data = $data;
         return $this->data;
     }
-
 }

@@ -14,13 +14,13 @@ class Ticket extends Controller
 
     public function index()
     {
-        $this->render('/templates/index.php');
+        $this->render('index.php');
     }
 
     public function list()
     {
         $tickets = $this->getRepo()->all();
-        $this->render('/templates/tickets.php', ['tickets' => $tickets]);
+        $this->render('tickets.php', ['tickets' => $tickets]);
     }
 
     public function add()
@@ -33,26 +33,17 @@ class Ticket extends Controller
         echo 'edit ' . $id;
     }
 
+    public function delete($id)
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $this->getRepo()->delete($id);
+        }
+    }
+
     public function spent()
     {
-        // Fetch all tickets for spent calcul
-        $tickets = $this->getRepo()->all();
-        // Store actual month for date comparaison of ticket date
-        $month = date('m');
-        // Init spents
-        $monthSpent = 0;
-        $globalSpent = 0;
-
-        // Spent calcul
-        foreach($tickets as $ticket) {
-            if($ticket->getDate()->format('m') === $month) {
-                $monthSpent += $ticket->getSpent();
-            }
-            $globalSpent+=$ticket->getSpent();
-        }
-
-        // Return results
-        var_dump(compact('monthSpent', 'globalSpent'));
+        $spent = $this->getRepo()->spent();
+        $this->render('fragments/_spent.php', $spent);
     }
 
     /**

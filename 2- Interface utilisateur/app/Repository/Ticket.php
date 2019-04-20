@@ -21,8 +21,11 @@ class Ticket
     public function all()
     {
         $return = [];
-        foreach($this->getHandler()->extract() as $values) {
-            $return[] = new \App\Entity\Ticket($values);
+        // Sort by date
+        foreach($this->getHandler()->getData() as $k=>$values) {
+            $ticket = new \App\Entity\Ticket($values);
+            $ticket->setId($k);
+            $return[] = $ticket;
         }
         return $return;
     }
@@ -32,14 +35,37 @@ class Ticket
 
     }
 
-    public function edit($values)
+    public function edit($id, $values)
     {
 
     }
 
     public function delete($element)
     {
+        $this->getHandler()->removeElement($element);
+        $this->getHandler()->write();
+    }
 
+    public function spent()
+    {
+        // Fetch all tickets for spent calcul
+        $tickets = $this->all();
+        // Store actual month for date comparaison of ticket date
+        $month = date('m');
+        // Init spents
+        $monthSpent = 0;
+        $globalSpent = 0;
+
+        // Spent calcul
+        foreach($tickets as $ticket) {
+            if($ticket->getDate()->format('m') === $month) {
+                $monthSpent += $ticket->getSpent();
+            }
+            $globalSpent+=$ticket->getSpent();
+        }
+
+        // Return results
+        return compact('monthSpent', 'globalSpent');
     }
 
     /**

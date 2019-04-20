@@ -20,7 +20,7 @@ abstract class Controller
         if(!empty($viewData))
             extract($viewData);
         ob_start();
-        include(ROOT . $templatePath);
+        include(ROOT . '/templates/' . $templatePath);
         echo ob_get_clean();
     }
 

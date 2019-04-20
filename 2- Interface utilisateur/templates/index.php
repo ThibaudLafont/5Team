@@ -27,19 +27,53 @@
             crossorigin="anonymous"></script>
     <!-- Perso script -->
     <script>
-        $.ajax({
-            url: '/list',
-            type: 'GET',
-            success : function(response, statut){
-                appendView(response);
-            },
-            error: function(resultat, statut, erreur){
-                appendError(resultat, statut)
-            }
-        })
+        list();
+
+        function spent() {
+            $.ajax({
+                url: '/spent',
+                type: 'GET',
+                success : function(response, statut){
+                    $('header nav p').remove();
+                    $('header nav').append(response);
+                },
+                error: function(resultat, statut, erreur){
+                    $('header nav p').remove();
+                    $('header nav').append('Error during spent fetch, please reload');
+                }
+            });
+        }
+
+        function list() {
+            $.ajax({
+                url: '/list',
+                type: 'GET',
+                success : function(response, statut){
+                    appendView(response);
+                },
+                error: function(resultat, statut, erreur){
+                    appendError(resultat, statut)
+                }
+            });
+        }
+
+        function deleteTicket(id) {
+            // Ajax request
+            $.ajax({
+                url: '/delete/' + id,
+                type: 'POST',
+                success: function(response, status) {
+                    list();
+                }
+            })
+        }
 
         function appendView(view) {
+            // Clear main content
             $('main').empty();
+            // Display spent
+            spent();
+            // Append given view
             $('main').append(view);
         }
 
