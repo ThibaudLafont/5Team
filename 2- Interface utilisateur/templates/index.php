@@ -34,12 +34,10 @@
                 url: '/spent',
                 type: 'GET',
                 success : function(response, statut){
-                    $('header nav p').remove();
-                    $('header nav').append(response);
+                    appendSpent(response);
                 },
                 error: function(resultat, statut, erreur){
-                    $('header nav p').remove();
-                    $('header nav').append('Error during spent fetch, please reload');
+                    appendSpent('Error during spent fetch');
                 }
             });
         }
@@ -49,10 +47,10 @@
                 url: '/list',
                 type: 'GET',
                 success : function(response, statut){
-                    appendView(response);
+                    appendMainView(response);
                 },
                 error: function(resultat, statut, erreur){
-                    appendError(resultat, statut)
+                    appendMainError(resultat, statut)
                 }
             });
         }
@@ -68,7 +66,7 @@
             })
         }
 
-        function appendView(view) {
+        function appendMainView(view) {
             // Clear main content
             $('main').empty();
             // Display spent
@@ -77,9 +75,14 @@
             $('main').append(view);
         }
 
-        function appendError(resultat, statut) {
+        function appendMainError(resultat, statut) {
             $('main').empty();
             $('main').append('<h1>' + resultat.responseText + '</h1>');
+        }
+
+        function appendSpent(content) {
+            $('header nav p').remove();
+            $('header nav').append(content);
         }
     </script>
 </body>

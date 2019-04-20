@@ -12,7 +12,7 @@ class Handler
     /**
      * @var array
      *
-     * Used to store decoded json
+     * Store decoded json
      */
     private $data;
 
@@ -31,6 +31,11 @@ class Handler
 
     }
 
+    /**
+     * @param $id
+     *
+     * Remove element with given Id from $this->data
+     */
     public function removeElement($id)
     {
         $data = $this->getData();
@@ -38,6 +43,9 @@ class Handler
         $this->setData($data);
     }
 
+    /**
+     * Write $this->data as json string in $this->getPath file
+     */
     public function write()
     {
         if(is_null($this->getData())) {
@@ -49,6 +57,8 @@ class Handler
 
     /**
      * @return string
+     *
+     * Return JSON file path
      */
     private function getPath(): string
     {
@@ -57,6 +67,8 @@ class Handler
 
     /**
      * @param string $path
+     *
+     * Set JSON file path
      */
     private function setPath(string $path): void
     {
@@ -65,6 +77,8 @@ class Handler
 
     /**
      * @return array
+     *
+     * If $this->data is not defined, inquire it from $this->path file
      */
     public function getData()
     {
@@ -82,6 +96,8 @@ class Handler
     /**
      * @param array $data
      * @return array
+     *
+     * Set $this->data from array
      */
     private function setData(array $data): array
     {

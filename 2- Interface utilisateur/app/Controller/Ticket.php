@@ -5,6 +5,9 @@ use Core\Controller\Controller;
 
 class Ticket extends Controller
 {
+    /**
+     * @var \App\Repository\Ticket
+     */
     private $repo;
 
     public function __construct(\App\Repository\Ticket $repo)
@@ -12,11 +15,17 @@ class Ticket extends Controller
         $this->setRepo($repo);
     }
 
+    /**
+     * Index of application
+     */
     public function index()
     {
         $this->render('index.php');
     }
 
+    /**
+     * Build view with all tickets.json elements
+     */
     public function list()
     {
         $tickets = $this->getRepo()->all();
@@ -33,6 +42,11 @@ class Ticket extends Controller
         echo 'edit ' . $id;
     }
 
+    /**
+     * @param $id
+     *
+     * Delete element with given id from tickets.json
+     */
     public function delete($id)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -40,6 +54,9 @@ class Ticket extends Controller
         }
     }
 
+    /**
+     * Return builded template for spent display
+     */
     public function spent()
     {
         $spent = $this->getRepo()->spent();
@@ -49,7 +66,7 @@ class Ticket extends Controller
     /**
      * @return mixed
      */
-    private function getRepo()
+    private function getRepo(): \App\Repository\Ticket
     {
         return $this->repo;
     }
@@ -57,7 +74,7 @@ class Ticket extends Controller
     /**
      * @param mixed $repo
      */
-    private function setRepo($repo): void
+    private function setRepo(\App\Repository\Ticket $repo): void
     {
         $this->repo = $repo;
     }
