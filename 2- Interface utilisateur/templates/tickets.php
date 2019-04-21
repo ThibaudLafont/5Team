@@ -13,7 +13,7 @@
                 <li class="list-group-item" id="ticket-spent"><?=$ticket->getSpent()?>$</li>
                 <!-- Action buttons -->
                 <li class="list-group-item">
-                    <buttton class="btn btn-warning">Edit</buttton>
+                    <buttton class="btn btn-warning" onclick="edit(<?=$ticket->getId()?>)">Edit</buttton>
                     <buttton class="btn btn-danger" onclick="deleteTicket(<?=$ticket->getId()?>)">Delete</buttton>
                 </li>
             </ul>

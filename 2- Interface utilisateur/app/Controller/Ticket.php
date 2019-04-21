@@ -32,7 +32,7 @@ class Ticket extends Controller
         $this->render('tickets.php', ['tickets' => $tickets]);
     }
 
-    public function add(\App\Form\Handler\Ticket $handler)
+    public function add(\App\Form\Handler\Add $handler)
     {
         $handler->process();
         $form = $handler->getForm();
@@ -48,9 +48,20 @@ class Ticket extends Controller
         $this->render('form.php', ['form' => $handler->getForm()]);
     }
 
-    public function edit($id)
+    public function edit(\App\Form\Handler\Edit $handler)
     {
-        echo 'edit ' . $id;
+        $handler->process();
+        $form = $handler->getForm();
+        // Check if form is submitted for response code
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            if($form->getIsValid()) {
+                http_response_code(201);
+            } else {
+                http_response_code(400);
+            }
+        }
+
+        $this->render('form.php', ['form' => $handler->getForm()]);
     }
 
     /**

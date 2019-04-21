@@ -2,7 +2,7 @@
 return
 [
     // Tables
-    'Repository/Ticket' => function(){
+    'Repository\Ticket' => function(){
         return new \App\Repository\Ticket(
             new \Core\JSON\Handler(\App\Repository\Ticket::JSON_PATH)
         );
@@ -14,15 +14,19 @@ return
     //Controller
     'Controller\Ticket' => function(){
         return new \App\Controller\Ticket(
-            new \App\Repository\Ticket(
-                new \Core\JSON\Handler(\App\Repository\Ticket::JSON_PATH)
-            )
+            $this->get('Repository\Ticket')
         );
     },
     // Form Handlers
-    'Handler\Ticket' => function(){
-        return new \App\Form\Handler\Ticket(
-            $this->get('Repository/Ticket')
+    'Handler\Add' => function(){
+        return new \App\Form\Handler\Add(
+            $this->get('Repository\Ticket')
+        );
+    },
+    'Handler\Edit' => function($id){
+        return new \App\Form\Handler\Edit(
+            $this->get('Repository\Ticket'),
+            $id
         );
     }
 ];

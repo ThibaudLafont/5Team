@@ -42,8 +42,8 @@ class Ticket extends Entity
      */
     public function setId($id)
     {
-        if(is_integer($id))
-            $this->id = $id;
+        if($id !== '')
+            $this->id = (int)$id;
     }
 
     /**

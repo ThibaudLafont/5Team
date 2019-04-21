@@ -44,21 +44,41 @@
             });
         }
 
-        function addSubmit()
+        function edit(id)
         {
+            $.ajax({
+                url: '/edit/' + id,
+                type: 'GET',
+                success : function(response, statut){
+                    // On success, simply append form view and show modal
+                    showModal(response);
+                }
+            });
+        }
+
+        function submit()
+        {
+            // Store form and data
             var form = $('#modal form');
             var data = {
+                id: form.find('input#id').val(),
                 title: form.find('input#title').val(),
                 date: form.find('input#date').val(),
                 spent: form.find('input#spent').val()
             }
+            // Dynamic build of url => empty id is creation, given id is edition
+            var url = (
+                data.id == '' ?
+                    '/add' :
+                    '/edit/' + data.id
+            );
+            // Ajax request
             $.ajax({
-                url: '/add',
+                url: url,
                 type: 'POST',
                 data: data,
                 success : function(response, statut){
                     // If add was successfull, show list
-                    console.log(response);
                     hideModal();
                     list();
                 },

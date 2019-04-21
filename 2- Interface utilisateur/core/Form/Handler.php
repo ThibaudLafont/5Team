@@ -126,7 +126,7 @@ abstract class Handler
      * Dynamic fetch of Service\Handler name
      */
     public function setName(){
-        $class = get_class($this); //Fetch class name
+        $class = get_parent_class($this); //Fetch class name
 
         $needle_pos = strpos($class, 'Handler\\'); //Define Class name without namespace
         $needle_length = strlen('Handler\\');

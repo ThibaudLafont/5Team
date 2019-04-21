@@ -29,20 +29,35 @@ class Ticket
         return $return;
     }
 
+    public function find($id)
+    {
+        $values = $this->getHandler()->getData()[$id];
+        $entity = new \App\Entity\Ticket($values);
+        $entity->setId($id);
+        return $entity;
+    }
+
     public function add($entity)
     {
         $handler = $this->getHandler();
         $handler->createElement([
             'title' => $entity->getTitle(),
-            'date' => $entity->getDate(),
+            'date' => $entity->getFormattedDate(),
             'spent' => $entity->getSpent(),
         ]);
         $handler->write();
     }
 
-    public function edit($id, $values)
+    public function edit($entity)
     {
-
+        $handler = $this->getHandler();
+        $handler->editElement(
+            $entity->getId(), [
+            'title' => $entity->getTitle(),
+            'date' => $entity->getFormattedDate(),
+            'spent' => $entity->getSpent(),
+        ]);
+        $handler->write();
     }
 
     public function delete($element)

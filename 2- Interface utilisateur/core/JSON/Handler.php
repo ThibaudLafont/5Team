@@ -28,9 +28,13 @@ class Handler
         $this->setData($data);
     }
 
-    public function editElement($is, $element)
+    public function editElement($id, $element)
     {
-
+        $data = $this->getData();
+        var_dump($data);
+        $data[$id] = $element;
+        var_dump($data);
+        $this->setData($data);
     }
 
     /**

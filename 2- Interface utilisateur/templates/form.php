@@ -30,7 +30,7 @@
                 Close
             </button>
             <!-- Submit button -->
-            <button type="button" class="btn btn-primary" onclick="addSubmit()">
+            <button type="button" class="btn btn-primary" onclick="submit()">
                 <?php
                     if(is_null($form->getEntity()->getId())){echo 'Add';}
                     else{echo 'Edit';}

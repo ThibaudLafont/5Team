@@ -4,27 +4,17 @@ namespace App\Form\Handler;
 use Core\Entity\Entity;
 use Core\Form\Handler;
 
-class Ticket extends Handler
+abstract class Ticket extends Handler
 {
 
     /**
      * @var \App\Repository\Ticket
      */
-    private $repo;
+    protected $repo;
 
     public function __construct(\App\Repository\Ticket $repo)
     {
         $this->setRepo($repo);
-    }
-
-    /**
-     * Function to execute if form submitted & valid
-     *
-     * @param Entity $entity
-     */
-    public function execute($entity)
-    {
-        $this->getRepo()->add($entity);
     }
 
     /**
@@ -42,7 +32,7 @@ class Ticket extends Handler
     /**
      * @return \App\Repository\Ticket
      */
-    private function getRepo(): \App\Repository\Ticket
+    protected function getRepo(): \App\Repository\Ticket
     {
         return $this->repo;
     }
@@ -50,7 +40,7 @@ class Ticket extends Handler
     /**
      * @param \App\Repository\Ticket $repo
      */
-    private function setRepo(\App\Repository\Ticket $repo)
+    protected function setRepo(\App\Repository\Ticket $repo)
     {
         $this->repo = $repo;
     }

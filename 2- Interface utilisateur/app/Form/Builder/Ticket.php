@@ -36,7 +36,7 @@ class Ticket extends Builder
                 'maxLength' => 10,
                 'validators' => [
                     new NotNull('Date is mandatory'),
-                    new FrenchDate('Date should be in dd/mm/yyyy format'),
+                    new FrenchDate('Date should be valid and in dd/mm/yyyy format'),
                     new UniqueDate('An other ticket has same date (must be unique)')
                 ]
             ]))->addField(new BootstrapInput([
