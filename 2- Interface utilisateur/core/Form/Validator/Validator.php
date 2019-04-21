@@ -25,8 +25,8 @@ abstract class Validator{
     /**
      * Validation logic
      *
-     * @param $var   Valeur à vérifier
-     * @return bool  True si valid, false sinon
+     * @param $var   Value to verify
+     * @return bool
      */
 	abstract public function isValid($var);
 

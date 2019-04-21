@@ -2,6 +2,7 @@
 namespace App\Entity;
 
 use Core\Entity\Entity;
+use Core\Service\IsDate;
 
 class Ticket extends Entity
 {
@@ -26,6 +27,8 @@ class Ticket extends Entity
      */
     private $date;
 
+    use IsDate;
+
     /**
      * @return int
      */
@@ -37,9 +40,10 @@ class Ticket extends Entity
     /**
      * @param int $id
      */
-    public function setId(int $id)
+    public function setId($id)
     {
-        $this->id = $id;
+        if(is_integer($id))
+            $this->id = $id;
     }
 
     /**
@@ -84,7 +88,11 @@ class Ticket extends Entity
 
     public function getFormattedDate()
     {
-        return $this->getDate()->format('d/m/Y');
+        if($this->isFrenchDate($this->getDate())){
+            return $this->getDate()->format('d/m/Y');
+        } else {
+            return $this->getDate();
+        }
     }
 
     /**
@@ -92,7 +100,7 @@ class Ticket extends Entity
      */
     public function setDate($date)
     {
-        if(is_string($date)) {
+        if($this->isFrenchDate($date)) {
             $this->date = date_create_from_format('d/m/Y', $date);
         } else {
             $this->date = $date;

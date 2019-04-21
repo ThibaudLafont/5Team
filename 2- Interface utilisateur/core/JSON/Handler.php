@@ -23,10 +23,12 @@ class Handler
 
     public function createElement($element)
     {
-
+        $data = $this->getData();
+        $data[] = $element;
+        $this->setData($data);
     }
 
-    public function editElement($element, $values)
+    public function editElement($is, $element)
     {
 
     }

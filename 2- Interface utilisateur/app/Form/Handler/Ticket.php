@@ -24,7 +24,7 @@ class Ticket extends Handler
      */
     public function execute($entity)
     {
-        echo 'soumis';
+        $this->getRepo()->add($entity);
     }
 
     /**

@@ -53,7 +53,7 @@ abstract class Field{
     protected function buildErrorView(){
         $html = '';
         if($this->getErrorMessage() !== null){
-            $html .= '<span class="red">' . $this->getErrorMessage() . '</span>';
+            $html .= '<span style="color:red">' . $this->getErrorMessage() . '</span>';
         }
         return $html;
     }

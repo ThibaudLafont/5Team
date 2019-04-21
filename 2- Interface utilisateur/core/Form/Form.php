@@ -30,8 +30,7 @@ class Form{
             [
                 'error'   => 'Form contain errors',
                 'success' => 'Form has been submit'
-            ],
-            $surround = 'p';
+            ];
 
     /**
      * Use $this->setEntity
@@ -70,21 +69,9 @@ class Form{
         $html .= $this->getValidatedMessage();
 
         foreach($this->fields as $field){
-            $html .= $this->surround($field->buildModule());
+            $html .= $field->buildModule();
         }
 
-        return $html;
-    }
-
-    /**
-     * Surround given content with $this->surround
-     *
-     * @param  HTML $html HTML content to surround
-     * @return HTML string
-     */
-    private function surround($html){
-        $tag = $this->surround;
-        $html = "<{$tag}>{$html}</{$tag}>";
         return $html;
     }
 
@@ -153,7 +140,7 @@ class Form{
      * @return HTML|''
      */
     public function getValidatedMessage(){
-        $valid =$this->getIsValid();
+        $valid = $this->getIsValid();
         if(!is_null($valid)){
             if($valid === false) $key = 'error';
             else $key = 'success';

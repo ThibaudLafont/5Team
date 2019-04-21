@@ -97,7 +97,7 @@ abstract class Handler
         $this->setForm($entity);
 
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
-            if($this->getForm()->validate()){
+            if($this->getForm()->validate()) {
                 $this->execute($entity);
             }
         }

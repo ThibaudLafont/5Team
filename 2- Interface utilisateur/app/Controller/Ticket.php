@@ -35,6 +35,16 @@ class Ticket extends Controller
     public function add(\App\Form\Handler\Ticket $handler)
     {
         $handler->process();
+        $form = $handler->getForm();
+        // Check if form is submitted for response code
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            if($form->getIsValid()) {
+                http_response_code(201);
+            } else {
+                http_response_code(400);
+            }
+        }
+
         $this->render('form.php', ['form' => $handler->getForm()]);
     }
 
