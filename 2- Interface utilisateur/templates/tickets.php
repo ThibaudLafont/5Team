@@ -14,7 +14,7 @@
                 <!-- Action buttons -->
                 <li class="list-group-item">
                     <buttton class="btn btn-warning" onclick="edit(<?=$ticket->getId()?>)">Edit</buttton>
-                    <buttton class="btn btn-danger" onclick="deleteTicket(<?=$ticket->getId()?>)">Delete</buttton>
+                    <buttton class="btn btn-danger" onclick="remove(<?=$ticket->getId()?>)">Delete</buttton>
                 </li>
             </ul>
         </div>

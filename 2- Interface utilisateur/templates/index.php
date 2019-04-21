@@ -40,6 +40,9 @@
                 success : function(response, statut){
                     // On success, simply append form view and show modal
                     showModal(response);
+                },
+                error: function(response, statut, erreur) {
+                    appendMainAlert(erreur + ' error during add form fetch. Please try again');
                 }
             });
         }
@@ -52,8 +55,25 @@
                 success : function(response, statut){
                     // On success, simply append form view and show modal
                     showModal(response);
+                },
+                error: function(response, statut, erreur) {
+                    appendMainAlert(erreur + ' error during edit form fetch. Please try again');
                 }
             });
+        }
+
+        function remove(id) {
+            // Ajax request
+            $.ajax({
+                url: '/delete/' + id,
+                type: 'POST',
+                success: function(response, status) {
+                    list();
+                },
+                error: function(response, statut, erreur) {
+                    appendMainAlert(erreur + ' error during ticket delete. Please try again');
+                }
+            })
         }
 
         function submit()
@@ -115,17 +135,6 @@
             });
         }
 
-        function deleteTicket(id) {
-            // Ajax request
-            $.ajax({
-                url: '/delete/' + id,
-                type: 'POST',
-                success: function(response, status) {
-                    list();
-                }
-            })
-        }
-
         // Main view functions
         //////////////////////
         function appendMainView(view) {
@@ -140,6 +149,13 @@
         function appendMainError(resultat, statut) {
             $('main').empty();
             $('main').append('<h1>' + resultat.responseText + '</h1>');
+        }
+
+        function appendMainAlert(error) {
+            var alert = document.createElement('p');
+            alert.classList = 'alert alert-danger';
+            alert.textContent = error;
+            $('main').prepend(alert);
         }
 
         function appendSpent(content) {

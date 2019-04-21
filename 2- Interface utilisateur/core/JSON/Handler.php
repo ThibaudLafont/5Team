@@ -31,9 +31,7 @@ class Handler
     public function editElement($id, $element)
     {
         $data = $this->getData();
-        var_dump($data);
         $data[$id] = $element;
-        var_dump($data);
         $this->setData($data);
     }
 
@@ -93,9 +91,12 @@ class Handler
             return $this->data;
         // Else decode, store and return
         } else {
-            return $this->setData(
-                json_decode(file_get_contents($this->getPath()), true)
-            );
+            $data = json_decode(file_get_contents($this->getPath()), true);
+            if(!is_null($data)) {
+                return $this->setData($data);
+            } else {
+                return $this->setData([]);
+            }
         }
     }
 

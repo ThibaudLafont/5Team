@@ -26,6 +26,7 @@ class Ticket
             $ticket->setId($k);
             $return[] = $ticket;
         }
+        usort($return, [self::class, 'sortByDate']);
         return $return;
     }
 
@@ -86,6 +87,14 @@ class Ticket
 
         // Return results
         return compact('monthSpent', 'globalSpent');
+    }
+
+    private static function sortByDate($a, $b) {
+        if ($a->getDate() == $b->getDate()) {
+            return 0;
+        }
+
+        return ($a->getDate() > $b->getDate()) ? -1 : 1;
     }
 
     /**
