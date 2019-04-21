@@ -14,7 +14,7 @@ class Price extends Validator{
      * @return bool
      */
 	public function isValid($var){
-	    if(preg_match('/^\d+(\.\d{2})?$/', (float)$var) && (float)$var>0) return true;
+	    if(preg_match('/^(\d)+(\.\d{2})?$/', (float)$var) && (float)$var>0) return true;
 	    else return false;
 	}
 	

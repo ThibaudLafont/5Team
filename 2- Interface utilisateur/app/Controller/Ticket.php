@@ -20,7 +20,7 @@ class Ticket extends Controller
      */
     public function index()
     {
-        $this->render('index.php');
+        $this->render('base.php');
     }
 
     /**
@@ -34,34 +34,12 @@ class Ticket extends Controller
 
     public function add(\App\Form\Handler\Add $handler)
     {
-        $handler->process();
-        $form = $handler->getForm();
-        // Check if form is submitted for response code
-        if($_SERVER['REQUEST_METHOD'] === 'POST'){
-            if($form->getIsValid()) {
-                http_response_code(201);
-            } else {
-                http_response_code(400);
-            }
-        }
-
-        $this->render('form.php', ['form' => $handler->getForm()]);
+        $this->handleForm($handler);
     }
 
     public function edit(\App\Form\Handler\Edit $handler)
     {
-        $handler->process();
-        $form = $handler->getForm();
-        // Check if form is submitted for response code
-        if($_SERVER['REQUEST_METHOD'] === 'POST'){
-            if($form->getIsValid()) {
-                http_response_code(201);
-            } else {
-                http_response_code(400);
-            }
-        }
-
-        $this->render('form.php', ['form' => $handler->getForm()]);
+        $this->handleForm($handler);
     }
 
     /**
@@ -83,6 +61,22 @@ class Ticket extends Controller
     {
         $spent = $this->getRepo()->spent();
         $this->render('fragments/_spent.php', $spent);
+    }
+
+    private function handleForm($handler)
+    {
+        $handler->process();
+        $form = $handler->getForm();
+        // Check if form is submitted for response code
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            if($form->getIsValid()) {
+                http_response_code(201);
+            } else {
+                http_response_code(400);
+            }
+        }
+
+        $this->render('form.php', ['form' => $handler->getForm()]);
     }
 
     /**
