@@ -65,6 +65,11 @@ class Office
         return $this->freeSpaceRate() >= 0;
     }
 
+    /**
+     * Build the office state
+     *
+     * @return string
+     */
     public function state()
     {
         return "

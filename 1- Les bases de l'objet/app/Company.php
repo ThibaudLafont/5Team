@@ -24,6 +24,9 @@ class Company
 
     use Hydrate;
 
+    /**
+     * Hire company workers as much as possible
+     */
     public function hire()
     {
         // Display initial Company state
@@ -44,6 +47,12 @@ class Company
         } while ($this->freeSpaceRate() < 0);
     }
 
+    /**
+     * Hire a worker and place him in an available office
+     *
+     * @param $type
+     * @param $offices
+     */
     public function hireWorker($type, $offices) {
         // Loop on every office and hire as soon as a not full office is find
         foreach ($offices[$type] as $k=>$office) {
@@ -53,15 +62,25 @@ class Company
                 $office->setWorkers(
                     $office->getWorkers()+1
                 );
+
+                // Display the company state
                 echo $this->state();
+
+                // Stop foreach as a worker has been hired
                 break;
-                // If office is full, remove it from offices to avoid useless loop
+
+            // If office is full, remove it from offices to avoid useless loop
             } else {
                 unset($offices[$type][$k]);
             }
         }
     }
 
+    /**
+     * Build the company state and all offices state
+     *
+     * @return string
+     */
     public function state()
     {
         // Company state
