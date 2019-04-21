@@ -32,25 +32,15 @@ class Company
         // Get all offices
         $offices = $this->getOffices();
 
-        // Execute while company isn't full
+        // Do while company is not full
         do {
-
             // While dev offices not all full, random choose of worker type (dev/commercial)
             if(rand(0,1) == 1 && !empty($offices['dev'])) {
-                // Loop on every remaining office and hire as soon as a not full office is find
-                foreach ($offices['dev'] as $k=>$office) {
-                    $this->hireWorker('dev', $offices);
-                }
-
-            // Else hire a Commercial worker
+                $this->hireWorker('dev', $offices);
+            // When dev offices are full, only hire Commercial workers
             } else {
-                // Loop on every remaining office and hire as soon as a not full office is find
-                foreach ($offices['com'] as $k=>$office) {
-                    $this->hireWorker('com', $offices);
-                }
+                $this->hireWorker('com', $offices);
             }
-
-        // Do while company is not full
         } while ($this->freeSpaceRate() < 0);
     }
 
