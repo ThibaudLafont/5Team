@@ -32,9 +32,10 @@ class Ticket extends Controller
         $this->render('tickets.php', ['tickets' => $tickets]);
     }
 
-    public function add()
+    public function add(\App\Form\Handler\Ticket $handler)
     {
-        echo 'add';
+        $handler->process();
+        $this->render('form.php', ['form' => $handler->getForm()]);
     }
 
     public function edit($id)

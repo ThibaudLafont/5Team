@@ -18,5 +18,11 @@ return
                 new \Core\JSON\Handler(\App\Repository\Ticket::JSON_PATH)
             )
         );
+    },
+    // Form Handlers
+    'Handler\Ticket' => function(){
+        return new \App\Form\Handler\Ticket(
+            $this->get('Repository/Ticket')
+        );
     }
 ];

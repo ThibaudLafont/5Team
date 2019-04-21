@@ -10,8 +10,7 @@ return
         $controller->list();
     },
     '/^\/add\/?$/' => function(){
-        $controller = $this->getDic()->get('Controller\Ticket');
-        $controller->add();
+        $this->getDic()->get('Controller\Ticket\Add');
     },
     '/^\/edit\/(\d+)\/?$/' => function($id){
         $controller = $this->getDic()->get('Controller\Ticket');

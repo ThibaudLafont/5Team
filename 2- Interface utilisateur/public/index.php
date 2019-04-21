@@ -19,15 +19,15 @@ require(ROOT . '/core/Service/Autoloader.php');
 /////
 $dic = new \Core\Service\DIC();
 
-//$dic->addDefinitions(ROOT . '/config/DIC/config.php');   //Variables d'environnement
-$dic->addDefinitions(ROOT . '/config/DIC/classes.php');    //Classes
-//$dic->addDefinitions(ROOT . '/config/DIC/method.php');   //Appel méthodes classe nécessitant dépendance
+//$dic->addDefinitions(ROOT . '/config/DIC/config.php');
+$dic->addDefinitions(ROOT . '/config/DIC/classes.php');
+$dic->addDefinitions(ROOT . '/config/DIC/methods.php');
 
 
 //ROUTER
 ////////
 $router = $dic->get('Router');
 
-$router->addDefinitions(ROOT . '/config/Router/routes.php');  //Ajout des routes
+$router->addDefinitions(ROOT . '/config/Router/routes.php');
 
-$router->execute($_SERVER['REQUEST_URI']);                    //Execution du router
+$router->execute($_SERVER['REQUEST_URI']);

@@ -1,22 +1,20 @@
 <?php
-namespace Core\Service\Validator;
+namespace Core\Form\Validator;
 
 /**
  * Class MaxLength
  * @package Core\Service\Validator
  *
- * Vérifie la longueur d'une chaine de caractères
+ * Check string length
  */
 class MaxLength extends Validator{
 
     /**
-     * @var int Longueur maximale authorisée
+     * @var int
      */
 	private	$maxLength;
 
     /**
-     * Appel des setters
-     *
      * @param String $errorMessage
      * @param Int    $maxLength
      */
@@ -29,7 +27,7 @@ class MaxLength extends Validator{
 	////METHODS
 
     /**
-     * Vérifie la longueur de la chaine
+     * Check string length
      *
      * @param  String $var
      * @return bool

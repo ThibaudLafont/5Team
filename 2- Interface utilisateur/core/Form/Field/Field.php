@@ -1,19 +1,19 @@
 <?php
-namespace Core\Model\Form\Field;
+namespace Core\Form\Field;
 
 /**
  * Class Field
  *
- * Représente un champs de formulaire, stocke des \Core\Service\Validator\Validator pour validation des valeurs fournies
+ * Form field, store validators for check given value
  */
 abstract class Field{
 
     /**
-     * @var String $name         Nom du champs   (pour construction HTML)
-     * @var String $label        Label du champs (pour construction HTML)
-     * @var String $value        Valeur du champs
-     * @var Array  $validators   Tableau contenant des instances de \Core\Service\Validator\Validator
-     * @var String $errorMessage Message d'erreur à afficher, qui sera récupéré d'un index de $validators
+     * @var String $name         Field Name
+     * @var String $label        Field label content
+     * @var String $value        Field value
+     * @var Array  $validators   Instances of \Core\Service\Validator\Validator
+     * @var String $errorMessage Error messsages from validators
      */
     protected $name,
               $label,
@@ -23,8 +23,7 @@ abstract class Field{
 
 
     /**
-     * Execute $this->hydrate si des données sont fournies
-     * Permet une instanciation sous forme de tableau, très claire
+     * Execute hydrate if values are given
      *
      * @param array $options Valeurs pour les attributs de field
      */
@@ -36,7 +35,7 @@ abstract class Field{
     ////ABSTRACT
 
     /**
-     * Contruit dynamiquement la vue (avec/sans erreur, value et label)
+     * Build HTML view
      * abstract implementation
      *
      * @return HTML|string
@@ -47,7 +46,7 @@ abstract class Field{
     ////METHODS
 
     /**
-     * Construit et retourne l'erreur si on a demandé auparavant la validation, null sinon
+     * Build error view form $this->errorMessages
      *
      * @return HTML|null
      */
@@ -60,7 +59,7 @@ abstract class Field{
     }
 
     /**
-     * Construit et retourne le label
+     * Build field label
      *
      * @return HTML
      */
@@ -75,7 +74,7 @@ abstract class Field{
     }
 
     /**
-     * Assigne dynamiquement les valeurs aux attributs du field
+     * Inquire field attributes values
      *
      * @param array $options Valeurs pour les attributs du field
      */
@@ -89,10 +88,10 @@ abstract class Field{
     }
 
     /**
-     * Execute un à un les validators stockés dans l'attribut $validators
-     * Le cas échéant, s'arrête au premier critère non respecté et stocke le message du validator en attribut
+     * Execute each validator stored in $this->>validators
+     * Stop at the first non valid check, and store error message
      *
-     * @return bool True si la valeur est valide, false autrement
+     * @return bool
      */
     public function validate(){
         $validators = $this->validators;
@@ -111,28 +110,28 @@ abstract class Field{
     ////GETTERS
 
     /**
-     * @return String Message d'erreur
+     * @return String Error message
      */
     public function getErrorMessage(){
         return $this->errorMessage;
     }
 
     /**
-     * @return String Valeur du label
+     * @return String
      */
     public function getLabel(){
         return $this->label;
     }
 
     /**
-     * @return String Nom du champs
+     * @return String
      */
     public function getName(){
         return $this->name;
     }
 
     /**
-     * @return String Valeur du champs
+     * @return String
      */
     public function getValue(){
         return $this->value;
@@ -156,13 +155,13 @@ abstract class Field{
     }
 
     /**
-     * Controle et assigne $this->validators
+     * Check if validators are instances of \Core\Form\Validator\Validator and assign them in $this->validators
      *
      * @param array $validators Tableau contenant des instances de \Core\Service\Validator\Validator
      */
     public function setValidators(Array $validators){
         foreach ($validators as $validator){
-            if ($validator instanceof \Core\Service\Validator\Validator && !in_array($validator, $this->validators)){
+            if ($validator instanceof \Core\Form\Validator\Validator && !in_array($validator, $this->validators)){
                 $this->validators[] = $validator;
             }
         }

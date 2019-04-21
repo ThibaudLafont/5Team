@@ -1,11 +1,11 @@
 <?php
-namespace Core\Service\Validator;
+namespace Core\Form\Validator;
 
 /**
  * Class NotNull
  * @package Core\Service\Validator
  *
- * Vérifie si la variable renseignée est nulle ou vide
+ * Check if given value is null or empty
  */
 class NotNull extends Validator{
 

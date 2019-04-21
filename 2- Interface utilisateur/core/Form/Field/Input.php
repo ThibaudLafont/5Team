@@ -1,17 +1,17 @@
 <?php
-namespace Core\Model\Form\Field;
+namespace Core\Form\Field;
 
 /**
  * Class Input
  * @package Core\Model\Form\Field
  *
- * Crée des inputs de tous les types
+ * Every type of input
  */
 class Input extends Field{
 
     /**
-     * @var string $type      Type d'input souhaité (text par défault)
-     * @var int    $maxLength Nombre de caratères max pour construction HTML
+     * @var string $type      Input type (text by default)
+     * @var int    $maxLength Max length
      */
 	protected $type ='text',
 			  $maxLength;
@@ -20,7 +20,7 @@ class Input extends Field{
 	////METHODS
 
     /**
-     * Contruit dynamiquement la vue (avec/sans erreur, value et label)
+     * Build of HTML view
      * abstract implementation
      *
      * @return HTML|string

@@ -3,7 +3,6 @@ namespace Core\Form;
 
 //Uses
 use Core\Entity\Entity;
-use Core\Form\Form;
 
 /**
  * Class Builder

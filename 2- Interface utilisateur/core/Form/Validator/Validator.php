@@ -1,22 +1,19 @@
 <?php
-namespace Core\Service\Validator;
+namespace Core\Form\Validator;
 
 /**
  * Class Validator
  *
- * Le but est de pouvoir créer différents critères de validation sur un principe de fonctionnement commun
- * Cette classe a pour but d'intéragir avec \Core\Model\Form\Field et d'en valider les données
+ * Abstract class of Validator.
  */
 abstract class Validator{
 
     /**
-     * @var String $errorMessage Message d'erreur à afficher si la valeur est invalide
+     * @var String $errorMessage Error message if value is invalid
      */
 	protected $errorMessage;
 
     /**
-     * À la contruction on renseigne $this->errorMessage
-     *
      * @param String $errorMessage
      */
 	public function __construct(String $errorMessage){
@@ -26,7 +23,7 @@ abstract class Validator{
 	////ABSTRACT
 
     /**
-     * Fonction déterminant si la valeur est valide
+     * Validation logic
      *
      * @param $var   Valeur à vérifier
      * @return bool  True si valid, false sinon

@@ -53,7 +53,7 @@ abstract class Handler
      * @return Entity
      */
     public function buildEntity($entity_params = []){
-        $entity_class = '\App\Model\Entity\\' . $this->getName();
+        $entity_class = '\App\Entity\\' . $this->getName();
         return new $entity_class($entity_params);
     }
 
@@ -113,7 +113,7 @@ abstract class Handler
      */
     public function setForm(Entity $entity)
     {
-        $builder_class = '\App\Service\Form\Builder\\' . $this->getName();
+        $builder_class = '\App\Form\Builder\\' . $this->getName();
         $formBuilder = new $builder_class($entity);
 
         $formBuilder->build();
