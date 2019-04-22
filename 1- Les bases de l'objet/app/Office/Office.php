@@ -66,7 +66,7 @@ class Office
     }
 
     /**
-     * Build the office state
+     * Build the office state in HTML
      *
      * @return string
      */
@@ -75,6 +75,7 @@ class Office
         return "
             <p style='float: left; margin-right: 1rem'>
                 <strong>{$this->getName()}</strong><br/>
+                Workers: {$this->getWorkers()}<br/>
                 Free space rate: {$this->freeSpaceRate()}
             </p>
         ";

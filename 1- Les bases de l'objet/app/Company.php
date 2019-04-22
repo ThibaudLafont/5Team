@@ -32,7 +32,7 @@ class Company
         // Display initial Company state
         echo $this->state();
 
-        // Get all offices
+        // Get all offices of all kinds
         $offices = $this->getOffices();
 
         // Do while company is not full
