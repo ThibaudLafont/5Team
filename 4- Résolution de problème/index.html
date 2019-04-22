@@ -7,5 +7,47 @@
 
     <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
+    <script>
+    	class Hunter 
+    	{
+    		constructor(bullets, hungryLevel, traveledKm, position) {
+	            this.bullets = bullets;
+	            this.hungryLevel = hungryLevel;
+	            this.traveledKm = traveledKm;
+	            this.position =position;
+        	}
+        	hunt(){}	
+    	}
+
+    	class Rabbit
+    	{
+    		constructor(speed, color, traveledKm, position) {
+	        	this.speed = speed;
+	        	this.hungryLevel;
+	        	this.traveledKm = traveledKm;
+	        	this.position = position;
+	        }
+        	pursued(){}
+    	}
+
+
+    	class Burrow
+    	{
+    		constructor(position, occupancy) {
+    			this.position = position;
+    			this.occupancy = occupancy;
+    		}
+    	}
+
+    	class Forest
+    	{
+    		constructor(burrows, rabbits, surface, treeNumber) {
+    			this.burrows = burrows;
+    			this.rabbits = rabbits;
+    			this.surface = surface;
+    			this.treeNumber = treeNumber;
+    		}
+    	}
+    </script>
 </body>
 </html>
