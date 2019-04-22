@@ -1,33 +1,180 @@
 <html>
 <head>
     <title>Hunting</title>
+    <style type="text/css">
+    	#forest{
+    		background-color: green;
+    		position: absolute;
+    	}
+    	#hunter, .rabbit {
+    		z-index: 101;
+    		margin: 0;
+    		padding: 0;
+    		position: relative;
+    	}
+    	#hunter {
+    		width: 7px;
+    		height: 7px;
+    		background-color: red;
+    	}
+    	.rabbit {
+    		width: 3px;
+    		height: 3px;
+    		background-color: yellow;
+    	}
+    </style>
 </head>
 <body>
     <h1>The hunting project</h1>
 
+    <div id="forest">
+    </div>
+
+
     <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
+
+    <!-- App Script -->
     <script>
+
     	class Hunter 
     	{
-    		constructor(bullets, hungryLevel, traveledKm, position) {
+    		constructor(bullets, hungryLevel, traveledKm, x, y) {
 	            this.bullets = bullets;
 	            this.hungryLevel = hungryLevel;
 	            this.traveledKm = traveledKm;
-	            this.position =position;
+	            this.x = x;
+	            this.y = y;
+	            this.enterForest();
         	}
-        	hunt(){}	
+        	hunt(){
+        		setInterval(this.randomMove.bind(this), 500)
+        	}	
+        	enterForest() {
+        		// Create HTML element representing hunter
+        		var p = document.createElement('p');
+        		p.id = 'hunter';
+        		$('#forest').append(p);
+
+        		// Store element
+        		this.html = p;
+
+        		// Place element by xy position
+        		this.htmlDisplay();
+        	}
+        	htmlDisplay() {
+            	$(this.html).css('left', this.x);
+            	$(this.html).css('top', this.y);
+        	}
+        	seeRabbit() {
+        		forest.rabbits.forEach(function(rabbit){
+        			// Distance between rabbit and hunter
+        			var distance = Math.sqrt(
+        					Math.pow((rabbit.x-hunter.x), 2) + 
+        					Math.pow((rabbit.y-hunter.y), 2)
+					);
+
+        			// If rabbit is in 10px area
+        			if(
+        				distance <= 12 && distance > 5
+    				) {
+        				console.log('Hunter see a rabit !');
+        				rabbit.escape(hunter.x, hunter.y);
+        				hunter.followRabbit(rabbit.x, rabbit.y);
+    				} else if (distance < 5) {
+    					console.log('Rabbit has been shooted');
+    				}
+        		});
+        	}
+        	randomMove() {
+        		// Random speed for x and y
+        		var xSpeed = Math.floor((Math.random() * 8) + 1);
+        		var ySpeed = Math.floor((Math.random() * 8) + 1);
+
+        		// If x position + speed exceed forest size, invert the move
+        		if(this.x+xSpeed > forest.length) {
+        			xSpeed = -xSpeed;	
+    			// If not, invert direction sometime for more random movement 
+        		} else if ((Math.random() < 0.35) && this.x-xSpeed>0) {
+        			xSpeed = -xSpeed;	        			
+        		}
+
+        		// Same principle as above
+        		if(this.y+ySpeed > forest.length) {
+        			ySpeed = -ySpeed;
+        		} else if ((Math.random() < 0.35) && this.y-ySpeed>0) {
+        			ySpeed = -ySpeed;	        			
+        		}
+
+        		// Update Hunter position and display it
+        		this.x += xSpeed;
+        		this.y += ySpeed;
+        		this.htmlDisplay();
+        		console.log('Hunter move in x:' + this.x + ' y:' + this.y);
+        		this.seeRabbit();
+        	}
+        	followRabbit(x, y) {
+        		if(this.x-x > 0) {
+        			this.x += 8;
+        		} else {
+        			this.x -= 8;
+        		}
+
+        		if(this.y-y > 0) {
+        			this.y += 8;
+        		} else {
+        			this.y -= 8;
+        		}
+
+        		this.htmlDisplay();
+        	}
     	}
 
     	class Rabbit
     	{
-    		constructor(speed, color, traveledKm, position) {
+    		constructor(speed, color, traveledKm, x, y) {
 	        	this.speed = speed;
 	        	this.hungryLevel;
 	        	this.traveledKm = traveledKm;
-	        	this.position = position;
+	            this.x = x;
+	            this.y = y;
+	            this.enterForest();
 	        }
-        	pursued(){}
+        	pursued() {}
+       		enterForest() {
+        		// Create HTML element representing hunter
+        		var p = document.createElement('p');
+        		p.classList = 'rabbit';
+        		$('#forest').append(p);
+
+        		// Store element
+        		this.html = p;
+
+        		// Place element by xy position
+        		this.htmlDisplay();       			
+       		}
+        	htmlDisplay() {
+            	$(this.html).css('left', this.x);
+            	$(this.html).css('top', this.y);
+        	}
+        	escape(x, y) {
+        		var xSpeed;
+        		var ySpeed;
+        		if(this.x-x >= 0) {
+        			xSpeed = this.speed;
+        		} else {
+        			xSpeed = -this.speed;
+        		}
+        		if(this.y-y >= 0) {
+        			ySpeed = -this.speed;
+        		} else {
+        			ySpeed = -this.speed;
+        		}
+        		this.x += xSpeed;
+        		this.y += ySpeed;
+        		this.htmlDisplay();
+        		console.log('Rabbit run in x:' + this.x + ' y:' + this.y)
+        	}
     	}
 
 
@@ -45,9 +192,25 @@
     			this.burrows = burrows;
     			this.rabbits = rabbits;
     			this.surface = surface;
+    			this.length = Math.sqrt(this.surface*1000000); // (1px = 1m)
     			this.treeNumber = treeNumber;
+    			this.htmlDisplay();
+    		}
+    		htmlDisplay() {
+    			// Count hunter html size 
+    			$('#forest').width(this.length+7);
+    			$('#forest').height(this.length+7);
     		}
     	}
+
+
+    	var forest = new Forest(
+    		[], [new Rabbit(10, 'white', 0, 10, 10), new Rabbit(10, 'white', 0, 150, 150), new Rabbit(10, 'white', 0, 75, 75)], 
+    		0.25, 500);
+
+    	var hunter = new Hunter(10, 0, 0, 0, 0);
+    	hunter.hunt()
+
     </script>
 </body>
 </html>
