@@ -1,8 +1,9 @@
 # Coding in object
-This app will simulate an company containing several offices. One office
+This app will simulate a company containing several offices. An office
 can be for developers or for commercials.   
 In order to know if an office is full, each Office object implements a `freeSpaceRate` 
-method which will return an int. If this int is negative the office still can hire new workers.    
+method which will return an int. If this int is negative the office still can hire new workers, the office
+is full when `Office::freeSpaceRate` is 0.    
 
 ### Run the app
 Run a php server and visit the `index.php`. For example : 
